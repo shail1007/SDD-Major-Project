@@ -1,0 +1,515 @@
+from tkinter import *
+
+green = "#327516"
+white = "white"
+red = "#f70c0c"
+orange = "#ff7a32"
+grey = "#e5e5e5"
+titlefont = "Helvetica 30 bold"
+font1 = "Helvetica 16 bold"
+font2 = "MSSerif 12 bold"
+font3 =  "Helvetica 16 bold italic"
+font4 = "MSSerif 12 bold italic"
+w, h, x, y = 315, 400, 200, 200
+relief = GROOVE
+batting1 = True
+bowlers = {0:"0"}
+innings = 1
+over_number = 0
+runs1 = 0
+runs2 = 0
+wickets1 = 0
+wickets2 = 0
+team1stats = str(runs1) + "/" + str(wickets1)
+team2stats = str(runs2) + "/" + str(wickets2)
+
+#  CREATING A WINDOW IN ORDER TO DESTROY IT IN THE MAINPAGE  ###########################################################################################################################################################################################
+def window():
+    global window
+    window = Tk()
+    window.geometry("%dx%d+%d+%d" %(w, h, x, y))
+    window.title("CRICKET SCORER")
+    window.configure(background = green)
+    
+    mainpage()
+
+#   MAINPAGE FUNCTION  ##################################################################################################################################################################################################################################
+def mainpage():
+    global window
+    window.destroy()
+    window = Tk()
+
+    #TITLE
+    titlept1 = Label(window, text = "CRICKET", fg = white, bg = green, font = titlefont).place(relx = 0.35, rely = 0.075, anchor = CENTER)
+    titlept2 = Label(window, text = "SCORER", fg = white, bg = green, font = titlefont).place(relx = 0.35, rely = 0.2, anchor = CENTER)
+
+    #BUTTONS
+    startgame = Button(window, text = "Start Match", fg = white, activeforegroun = white, bg = green, activebackground = red, font = font1, width = 21, relief = relief, command = teaminfo).place(relx = 0.5, rely = 0.4, anchor = CENTER)
+    tutorial = Button(window, text = "Help", fg = white, activeforeground = white, bg = green, activebackground = red, font = font1, width = 21, relief = relief, command = tutorial_).place(relx = 0.5, rely = 0.55, anchor = CENTER)
+    quitbtn = Button(window, text = "Exit", fg = white, activeforeground = white, bg = green, activebackground = red, font = font1, width = 21, relief = relief, command = exit).place(relx = 0.5, rely = 0.7, anchor = CENTER)
+    scrtbtn = Button(window, text = " ", font = font1, bg = green, activebackground = red, width = 21, relief = FLAT, command = ownershipinfo).place(relx = 0.5, rely = 0.85, anchor = CENTER)
+
+    #IMAGE
+    photo = PhotoImage(file="Cricket.png").subsample(7)
+    draft = Label(image = photo, bg = green)
+    draft.image = photo
+    draft.place(relx = 0.8, rely = 0.13, anchor = CENTER)
+
+    #WINDOW CONFIGURATION
+    window.geometry("%dx%d+%d+%d" %(w, h, x, y))
+    window.iconbitmap('Cricket icon.ico')
+    window.title("CRICKET SCORER")
+    window.configure(background = green)
+
+#  OWNERSHIP INFO  #####################################################################################################################################################################################################################################
+def ownershipinfo():
+    global window
+    window.destroy()
+    window = Tk()
+
+    title = Label(window, text = "OWNERSHIP PROOF", fg = white, bg = green, font = font1).place(relx = 0.5, rely = 0.1, anchor = CENTER)
+    label = Label(window, text = ''' This is proof that the program is created 
+and owned by Shail Patel & Vyom Versin.''', fg = white, bg = green, font = font2).place(relx = 0.5, rely = 0.225, anchor = CENTER)
+    photo = PhotoImage(file="LOGO.png")
+    draft = Label(image = photo, bg = green)
+    draft.image = photo
+    draft.place(relx = 0.45, rely = 0.65, anchor = CENTER)
+
+    window.geometry("%dx%d+%d+%d" %(w, h, x, y))
+    window.iconbitmap('Cricket icon.ico')
+    window.title("CRICKET SCORER")
+    window.configure(background = green)
+
+#  TUTORIAL  ############################################################################################################################################################################################################################################ 
+def tutorial_():
+   global window
+   window.destroy()
+   window = Tk()
+
+   #TITLE
+   titlept1 = Label(window, text = "INSTRUCTIONS", fg = white, bg = green, font = titlefont).place(relx = 0.5, rely = 0.05, anchor = CENTER)
+
+   #TUTORIAL INFORMATION
+   info = Label(window, text = '''
+The   program   is  fairly  simple to  use,
+just press start game button on the first
+window, and enter  all   the  information
+that is required from  you.  Once  all the
+match details are filled  in, simply  press
+buttons that  inform  the program  what
+happens  each   ball. The  program  will
+automaticallykeep  track  of the  rest for
+you. ''', fg = white, bg = green, font = font2).place(relx = 0.5, rely = 0.35,anchor = CENTER)
+
+   #DIVIDERS TO MAKE IT LOOK NICE
+   divider1 = Label(window, text = "-----------------------------------------------------------", fg = white, bg = green, font = font2).place(relx = 0.5, rely = 0.125, anchor = CENTER)
+   divider2 = Label(window, text = "-----------------------------------------------------------", fg = white, bg = green, font = font2).place(relx = 0.5, rely = 0.625, anchor = CENTER)
+
+   #BUTTON
+   back = Button(window, text = "Back", fg = white, activeforeground = white, bg = green, activebackground = red, font = font1, width = 5, relief = relief, command = mainpage).place(relx = 0.575, rely = 0.725, anchor= CENTER)
+   qtbtn = Button(window, text = "Exit", fg = white, activeforeground = white, bg = green, activebackground = red, font = font1, width = 5, relief = relief, command = exit).place(relx = 0.85, rely = 0.725, anchor = CENTER)
+
+   #WINDOW CONFIGURATION
+   window.geometry("%dx%d+%d+%d" %(w, h, x, y))
+   window.title("CRICKET SCORER")
+   window.iconbitmap('Cricket icon.ico')
+   window.configure(background = green)
+
+#   TEAM INFORMATION  ####################################################################################################################################################################################################################################
+def teaminfo():
+   global window, var1, var2, var3, var4, var5
+   window.destroy()
+   window = Tk()
+
+   #TITLE
+   titlept1 = Label(window, text = "TEAM DETAILS", fg = white, bg = green, font = titlefont).place(relx = 0.5, rely = 0.1, anchor = CENTER)
+
+   #TEAM NAME 
+   teamnm1 = Label(window, text = "Team One: ", fg = white, bg = green, font = font1).place(relx = 0.2, rely = 0.3, anchor = CENTER)
+   teamnm2 = Label(window, text = "Team Two: ", fg = white, bg = green, font = font1).place(relx = 0.2, rely = 0.4, anchor = CENTER)
+   var1 = StringVar()
+   var2 = StringVar()
+   entry1 = Entry(window, fg = green, relief = FLAT, textvariable = var1).place(relx = 0.6, rely = 0.3, anchor = CENTER)
+   entry2 = Entry(window, fg = green, relief = FLAT, textvariable = var2).place(relx = 0.6, rely = 0.4, anchor = CENTER)
+
+   #WHICH TEAM BATTING - Allows the user to select which team is batting
+   battingask = Label(window, text = "Batting", fg = white, bg = green, font = "Helvetica 10 bold").place(relx = 0.9, rely = 0.225, anchor = CENTER)
+   var3= StringVar()
+   var3.set("Batting1")
+   battingone = Radiobutton(window, variable = var3, value = "Batting1", bg = green, activebackground = green, fg = red, activeforeground = red).place(relx = 0.9, rely = 0.3, anchor = CENTER)
+   battingtwo = Radiobutton(window, variable = var3, value = "Batting2", bg = green, activebackground = green, fg = red, activeforeground = red).place(relx = 0.9, rely = 0.4, anchor = CENTER)
+
+   #DIVIDER TO MAKE IT LOOK NICE
+   divider1 = Label(window, text = '''|
+|
+|
+|''', fg = white, bg = green, font = font2).place(relx = 0.825, rely = 0.35, anchor = CENTER)
+
+   #VENUE NAME
+   venuenm = Label(window, text = "Venue: ", fg = white, bg = green, font = font1).place(relx = 0.26, rely = 0.5, anchor = CENTER)
+   var4 = StringVar()
+   entry3 = Entry(window, fg = green, relief = FLAT, textvariable = var4).place(relx = 0.6, rely = 0.5, anchor = CENTER)
+
+   #OVER NUMBERS
+   oversnm = Label(window, text = "Overs: ", fg = white, bg = green, font = font1).place(relx = 0.26, rely = 0.6, anchor = CENTER)
+   var5 = StringVar()
+   var5.set(50)
+   overnumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+              20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+              40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
+              60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
+              80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
+   overnmb = OptionMenu(window, var5, *overnumber )
+   overnmb.configure(background = green, activebackground = red, relief = relief, foreground = white, activeforeground = white, width = 5)
+   overnmb["menu"].configure(bg = green, activebackground = red)
+   overnmb.place(relx = 0.52 ,rely = 0.6, anchor = CENTER)
+   overnmadd = Label(window, text = "per inning", fg = white, bg = green, font = font2).place(relx = 0.8, rely = 0.6, anchor = CENTER)
+
+   #BUTTON
+   cont = Button(window, text = "Continue", fg = white, activeforeground = white, bg = green, activebackground = red, font = font1, width = 7, relief = relief, command = saveteaminfo).place(relx = 0.18, rely = 0.75, anchor = CENTER)
+   back = Button(window, text = "Back", fg = white, activeforeground = white, bg = green, activebackground = red, font = font1, width = 6, relief = relief, command = mainpage).place(relx = 0.52, rely = 0.75, anchor = CENTER)
+   qtbtn = Button(window, text = "Exit", fg = white, activeforeground = white, bg = green, activebackground = red, font = font1, width = 6, relief = relief, command = exit).place(relx = 0.825, rely = 0.75, anchor = CENTER)
+
+   #WINDOW CONFIGURATION
+   window.geometry("%dx%d+%d+%d" %(w, h, x, y))
+   window.title("CRICKET SCORER")
+   window.iconbitmap('Cricket icon.ico')
+   window.configure(background = green)
+
+#  SAVING & VALIDATING INPUTS FROM THE TEAM INFO  ########################################################################################################################################################################################################
+def saveteaminfo():
+    global window, batting1, team1, team2, batting1, venue, overs, toolongcount1
+
+    validinputcount1 = 0
+    toolongcount1 = 0
+    
+    #SAVING ALL THE INPUTS FROM THE TEAM INFO
+    team1 = str(var1.get())
+    team2 = str(var2.get())
+    teambatting = str(var3.get())
+    if teambatting == "Batting1":
+       batting1 = True
+    elif teambatting == "Batting2":
+       batting1 = False
+    venue = str(var4.get())
+    overs = var5.get()
+    name()  #Delete this later, when the section below is running
+
+"""#MAKING SURE THAT SOMETHING HAS BEEN ENTERED FOR EACH INPUT 
+    if len(team1) == 0:
+        mark1 = Label(window, text = "*", fg = red, bg = green, font = font1).place(relx = 0.38, rely = 0.3, anchor = CENTER)
+    elif len(team1) > 20:
+        mark11 = Label(window, text = "*", fg = orange, bg = green, font = font1).place(relx = 0.38, rely = 0.3, anchor = CENTER)
+        toolongcount1 += 1
+        validinputcount1 += 1
+    else:
+       unmark1 = Label(window, text = " ", fg = red, bg = green, font = font1).place(relx = 0.38, rely = 0.3, anchor = CENTER)
+       unmark11 = Label(window, text = " ", fg = orange, bg = green, font = font1).place(relx = 0.38, rely = 0.3, anchor = CENTER)
+       validinputcount1 += 1
+        
+    if len(team2) == 0:
+        mark2 = Label(window, text = "*", fg = red, bg = green, font = font1).place(relx = 0.38, rely = 0.4, anchor = CENTER)                                                                                           #THIS IS THE VALIDATION FOR THE TEAM INFO
+    elif len(team2) > 20:                                                                                                                                                                                                                                             #TO MAKE SURE THAT ALL REQUIRED INFORMATION IS ENTERED
+        mark21 = Label(window, text = "*", fg = orange, bg = green, font = font1).place(relx = 0.38, rely = 0.4, anchor = CENTER)                                                                             #UNCOMMENT THIS SECTION ONCE THE PROGRAM IS DONE 
+        toolongcount1 += 1
+        validinputcount1 += 1
+    else:                                                                                                                                                                                                                                                                                                                                                                                                                               
+        unmark2 = Label(window, text = " ", fg = red, bg = green, font = font1).place(relx = 0.38, rely = 0.4, anchor = CENTER)                                                                                                                             
+        unmark21 = Label(window, text = " ", fg = orange, bg = green, font = font1).place(relx = 0.38, rely = 0.4, anchor = CENTER)
+        validinputcount1 += 1 
+         
+    if batting1 == False or batting1 == True:
+        unmark3 = Label(window, text = " ", fg = red, bg = green, font = font1).place(relx = 0.8125, rely = 0.225, anchor  = CENTER)
+        validinputcount1 += 1
+    else:
+        mark3 = Label(window, text = "*", fg = red, bg = green, font = font1).place(relx = 0.8125, rely = 0.225, anchor  = CENTER)
+        
+    if len(venue) == 0:
+        mark4 = Label(window, text = "*", fg = red, bg = green, font = font1).place(relx = 0.38, rely = 0.5, anchor = CENTER)
+    elif len(venue) > 20:
+        mark41 = Label(window, text = "*", fg = orange, bg = green, font = font1).place(relx = 0.38, rely = 0.5, anchor = CENTER)
+        toolongcount1 += 1
+        validinputcount1 += 1
+    else:
+        unmark4 = Label(window, text = " ", fg =  red, bg = green, font = font1).place(relx = 0.38, rely = 0.5, anchor = CENTER)
+        unmark41 = Label(window, text = " ", fg = orange, bg = green, font = font1).place(relx = 0.38, rely = 0.5, anchor = CENTER)
+        validinputcount1 += 1
+    
+    if toolongcount1 > 0 and validinputcount1 < 4:
+        invalidpt1= Label(window, text = "*", fg = red , bg = green, font = "Helvetica 15 bold").place(relx = 0.075, rely = 0.8625, anchor = CENTER)
+        invalidpt2 = Label(window, text =  "Input left blank, please go back and try again", fg = white, bg =  green, font = "Helvetica 9 bold").place(relx = 0.5, rely = 0.85, anchor = CENTER)
+        invalidpt3 = Label(window, text = "*", fg = orange, bg = green, font = "Helvetica 15 bold").place(relx = 0.075, rely = 0.9245, anchor = CENTER)
+        invalidpt4 = Label(window, text = '''Input too long, make sure it's less than 20
+characters''', fg = white, bg = green, font = "Helvetica 9 bold").place(relx = 0.475, rely = 0.9325, anchor = CENTER)
+    elif toolongcount1 > 0 and validinputcount1 == 4:
+        invalidpt1 = Label(window, text = '''                                                                                                                     
+                             ''', fg = white, bg = green, font = "Helvetica 12 bold").place(relx = 0.475, rely = 0.9325, anchor = CENTER)
+        invalidpt2 = Label(window, text = '''                                                                                                           ''', fg = red , bg = green, font = "Helvetica 10 bold").place(relx = 0.5, rely = 0.85, anchor = CENTER)
+        invalidpt3 = Label(window, text = "*", fg = orange, bg = green, font = "Helvetica 15 bold").place(relx = 0.075, rely = 0.8625, anchor = CENTER)
+        invalidpt4 = Label(window, text = '''Input too long, make sure it's less than 20
+characters''', fg = white, bg = green, font = "Helvetica 9 bold").place(relx = 0.475, rely = 0.8725, anchor = CENTER)
+    elif toolongcount1 == 0 and validinputcount1 < 4:
+        invalidpt1 = Label(window, text = '''                                               
+                             ''', fg = white, bg = green, font = "Helvetica 12 bold").place(relx = 0.475, rely = 0.86, anchor = CENTER)
+        invalidpt2= Label(window, text = "*", fg = red , bg = green, font = "Helvetica 15 bold").place(relx = 0.075, rely = 0.8625, anchor = CENTER)
+        invalidpt3 = Label(window, text =  "Input left blank, please go back and try again", fg = white, bg =  green, font = "Helvetica 9 bold").place(relx = 0.5, rely = 0.85, anchor = CENTER)
+    elif validinputcount1 == 4 and toolongcount1 == 0:
+        invalidpt1 = Label(window, text = '''                                                                                                           ''', fg = red , bg = green, font = "Helvetica 10 bold").place(relx = 0.5, rely = 0.85, anchor = CENTER)
+        invalidpt2 = Label(window, text = "                                                                                                      ", fg = red, bg = green, font = "Helvetical 10 bold").place(relx = 0.5, rely = 0.85, anchor = CENTER)     
+        name()"""
+
+#  NAME  ##################################################################################################################################################################################################################################################
+def name():
+    global window, var6, var7, var8, var9
+    window.destroy()
+    window = Tk()
+
+    #TITLE
+    titlept1 = Label(window, text = "PLAYER NAMES", fg = white, bg = green, font = titlefont).place(relx = 0.5, rely = 0.1, anchor = CENTER)
+
+    #BATSMEN NAMES
+    batter1nm = Label(window, text = "Batsman 1: ", fg = white, bg = green, font = font1).place(relx =  0.2, rely = 0.3, anchor = CENTER)
+    var6 = StringVar()
+    btsmn1 = Entry(window, fg = green, relief = FLAT, textvariable = var6).place(relx = 0.625, rely = 0.3, anchor = CENTER)
+    batter2nm = Label(window, text = "Batsman 2: ", fg = white, bg = green, font = font1).place(relx = 0.2, rely = 0.4, anchor = CENTER)
+    var7 = StringVar()
+    batsmn2 = Entry(window, fg = green, relief = FLAT, textvariable = var7).place(relx = 0.625, rely = 0.4, anchor = CENTER)
+
+    #WHO IS ON STRIKE - Allows the user to select which batsman will be opening the strike
+    strikeask = Label(window, text = "Strike", fg = white, bg = green,font = "Helvetica 10 bold").place(relx = 0.925, rely = 0.225, anchor = CENTER)
+    var8 = StringVar()
+    var8.set("Strike1")
+    strikeone = Radiobutton(window, variable =  var8, value = "Strike1",  fg = red, activeforeground = red, bg = green, activebackground = green).place(relx = 0.925, rely = 0.3, anchor = CENTER)
+    striketwo = Radiobutton(window, variable = var8, value = "Strike2", fg = red, activeforeground = red, bg = green, activebackground = green).place(relx = 0.925, rely = 0.4, anchor = CENTER)
+
+    #DIVIDER TO MAKE IT LOOK NICE
+    divider1 = Label(window, text = '''|
+|
+|
+|''', fg = white, bg = green, font = font2).place(relx = 0.855, rely = 0.35, anchor = CENTER)
+
+    #BOWLER NAME
+    bowlernm = Label(window, text = "Bolwer: ", fg = white, bg = green, font = font1).place(relx = 0.26, rely = 0.5, anchor = CENTER)
+    var9 = StringVar()
+    bowlername = Entry(window, fg = green, relief = FLAT, textvariable = var9).place(relx = 0.625, rely = 0.5, anchor = CENTER)
+
+    #BUTTONS
+    cont = Button(window, text = "Continue", fg = white, activeforeground = white, bg = green, activebackground = red, font = font1, relief = relief, command = savename).place(relx = 0.5, rely = 0.625, anchor = CENTER)
+    back = Button(window, text = "Back", fg  = white, activeforeground = white, bg = green, activebackground = red, font = font1, relief = relief, command = teaminfo).place(relx = 0.835, rely = 0.625, anchor = CENTER)
+    
+    window.geometry("%dx%d+%d+%d" %(w, h, x, y)) 
+    window.title("CRICKET SCORER")
+    window.iconbitmap('Cricket icon.ico')
+    window.configure(background = green)
+
+#  SAVING AND VALIDATING INPUTS FROM NAME  #############################################################################################################################################################################################################
+def savename():
+    global batsman1_name, batsman2_name, strike1, bowler_name, bowler_stats
+    
+    validinputcount2 = 0
+    toolongcount2 = 0
+
+    #SAVING ALL THE INPUTS FROM NAME
+    batsman1_name = str(var6.get())
+    batsman2_name = str(var7.get())
+    striker = var8.get()
+    if striker == "Strike1":
+        strike1 = True
+    elif striker == "Strike2":
+        strike1 = False
+    bowler_name = str(var9.get())
+
+    bowlernamecheck = True
+    for i in bowlers:
+        if  i == bowler_name:
+            bowlers[i] = bowler_stats
+            bowlernamecheck = True
+            break
+        else:
+            bowlernamecheck = False
+    if bowlernamecheck == False:
+        bowler_wicket_stats =  0
+        bowler_runs_stats = 0
+        bowler_stats = str(bowler_wicket_stats) + "/" + str(bowler_runs_stats)
+        ##################################################################print(bowler_stats) 
+        bowlers[bowler_name] = bowler_stats                                                                                                                 #Take away the comments and use the print statements again if the program messes up
+        ##################################################################print(bowlers)             
+    
+    scoring()  #Delete this later, when the section below is running
+
+""" #MAKING SURE THAT SOMETHING HAS BEEN ENTERED FOR EACH INPUT
+    if len(batsman1_name) == 0:
+      mark1 = Label(window, text = "*", fg = red, bg = green, font = font1).place(relx = 0.4, rely = 0.3, anchor = CENTER)
+    elif len(batsman1_name) > 20:
+       mark11 = Label(window, text = "*", fg = orange, bg = green, font = font1).place(relx = 0.4, rely = 0.3, anchor = CENTER)
+       toolongcount2 += 1
+       validinputcount2 += 1
+    else:
+      unmark1 = Label(window, text = " ", fg = red, bg = green, font = font1).place(relx = 0.4, rely = 0.3, anchor = CENTER) 
+      validinputcount2 += 1
+      
+    if len(batsman2_name) == 0:                                                                                                                                                                                                                                                                                                                                     
+      mark2 = Label(window, text = "*", fg = red, bg = green, font = font1).place(relx = 0.4, rely = 0.4, anchor = CENTER)
+    elif len(batsman2_name) > 20:
+      mark21 = Label(window, text = "*", fg = orange, bg = green, font = font1).place(relx = 0.4, rely = 0.4, anchor = CENTER)
+      toolongcount2 += 1
+      validinputcount2 += 1
+    else:
+      unmark2 = Label(window, text = " ", fg = red, bg = green, font = font1).place(relx = 0.4, rely = 0.4, anchor = CENTER)
+      validinputcount2 += 1
+
+    if strike1 == False or strike1 == True:
+      unmark3 = Label(window, text = " ", fg = red, bg = green, font = font1).place(relx = 0.85, rely = 0.225, anchor = CENTER)                                                                                # THIS IS THE VALIDATION FOR THE NAME
+      validinputcount2 += 1                                                                                                                                                                                                                                # TO MAKE SURE THAT ALL REQUIRED INFORMATION IS ENTERED
+    else:                                                                                                                                                                                                                                                                   #UNCOMMENT THIS SECTION ONCE THE PROGRAM IS DONE 
+      mark3 = Label(window, text = "*", fg = red, bg = green, font = font1).place(relx = 0.85, rely = 0.225, anchor = CENTER)
+      
+    if len(bowler_name) == 0:
+      mark4 = Label(window, text = "*", fg = red, bg = green, font = font1).place(relx = 0.4, rely = 0.5, anchor = CENTER)
+    elif len(bowler_name) > 20:
+      mark41 = Label(window, text = "*", fg = orange, bg = green, font = font1).place(relx = 0.4, rely = 0.5, anchor = CENTER)
+      toolongcount2 += 1
+      validinputcount2 += 1
+    else:
+      unmark4 = Label(window, text = " ", fg = red, bg = green, font = font1).place(relx = 0.4, rely = 0.5, anchor = CENTER)
+      validinputcount2 += 1
+
+    if toolongcount2 > 0 and validinputcount2 < 4:
+        invalidpt1 = Label(window, text = "*", fg = red , bg = green, font = "Helvetica 15 bold").place(relx = 0.075, rely = 0.75, anchor = CENTER)
+        invalidpt2 = Label(window, text = "Input left blank, please go back and try again", fg = white, bg = green, font = "Helvetica 9 bold").place(relx = 0.525, rely = 0.7375, anchor = CENTER)
+        invalidpt3 = Label(window, text = "*", fg = orange, bg = green, font = "Helvetica 15 bold").place(relx = 0.075, rely = 0.8125, anchor = CENTER)
+        invalidpt4 = Label(window, text = '''Input too long, make sure it's less than 20
+characters''', fg = white, bg = green, font = "Helvetica 9 bold").place(relx = 0.5, rely = 0.815, anchor = CENTER)
+    elif toolongcount2 > 0 and validinputcount2 == 4:
+        invalidpt1 = Label(window, text = '''
+                                                                  ''', fg = white, bg = green, font = "Helvetica 15 bold").place(relx = 0.5, rely = 0.815, anchor = CENTER)
+        invalidpt2 = Label(window, text = "                                                                                     ", fg = white, bg = green, font = "Helvetica 9 bold").place(relx = 0.525, rely = 0.7375, anchor = CENTER)
+        invalidpt3 = Label(window, text = "*", fg = orange, bg = green, font = "Helvetica 15 bold").place(relx = 0.075, rely = 0.75, anchor = CENTER)
+        invalidpt4 = Label(window, text = '''Input too long, make sure it's less than 20
+characters''', fg = white, bg = green, font = "Helvetica 9 bold").place(relx = 0.5, rely = 0.7525, anchor = CENTER)
+    elif toolongcount2 == 0 and validinputcount2 < 4:
+        invalidpt1 = Label(window, text = '''
+                                             ''', fg = white, bg = green, font = "Helvetica 9 bold").place(relx = 0.5, rely = 0.815, anchor = CENTER)
+        invalidpt2 = Label(window, text = "*", fg = red , bg = green, font = "Helvetica 15 bold").place(relx = 0.075, rely = 0.75, anchor = CENTER)
+        invalidpt3 = Label(window, text = "Input left blank, please go back and try again", fg = white, bg = green, font = "Helvetica 9 bold").place(relx = 0.525, rely = 0.7375, anchor = CENTER)
+    else:
+        invalidpt1 = Label(window, text = '''
+                                       ''', fg = white, bg = green, font = "Helvetica 15 bold").place(relx = 0.5, rely = 0.815, anchor = CENTER)
+        invalidpt2 = Label(window, text = "                                                                                 ", fg = white, bg = green, font = "Helvetica 15 bold").place(relx = 0.525, rely = 0.7375, anchor = CENTER)
+        scoring()"""
+
+#  SCORING ###############################################################################################################################################################################################################################################
+def scoring():
+    global window, balls
+    window.destroy()
+    window = Tk()
+
+    if innings > 2:
+        gamefinish()
+
+    if over_number > int(overs):
+        inningfinish()
+
+    balls = 1
+
+    if balls > 6:
+        overfinish()
+    
+    #TITLE & STATS
+    if batting1 == True:
+        team1label = Label(window, text = team1.upper(), fg = grey, bg = green, font = font3).place(relx = 0.5, rely = 0.05, anchor = CENTER )
+        team1stattitle = Label(window, text = "SCORE: ", fg = grey, bg = green, font = font4).place(relx = 0.01, rely = 0.125)
+        team1statlabel = Label(window, text = team1stats, fg = white, bg = green, font = font2).place(relx = 0.25, rely = 0.125)
+    else:
+        team2label = Label(window, text = team2.upper(), fg = grey, bg = green, font = font1).place(relx = 0.025, rely = 0.02)
+        team2stattitle = Label(window, text = "SCORE: ", fg = grey, bg = green, font = font4).place(relx = 0.01, rely = 0.125)
+        team2statlabel = Label(window, text = team2stats, fg = white, bg = green, font = font2).place(relx = 0.25, rely = 0.125)
+
+    #DIVIDER TO MAKE IT LOOK NICE
+    dividerpt1 = Label(window, text = "|", fg = white, bg =  green, font = font2).place(relx = 0.35, rely = 0.1225)
+    dividerpt2 = Label(window, text = "|", fg = white, bg = green, font = font2).place(relx = 0.68, rely = 0.1225)
+    dividerpt3 = Label(window, text = "--------------------------------------------------------------", fg = white, bg = green, font = font2).place(relx = 0.5, rely = 0.2025, anchor = CENTER)
+    dividerpt4 = Label(window, text = "--------------------------------------------------------------", fg = white, bg = green, font = font2).place(relx = 0.5, rely = 0.4025, anchor = CENTER)
+    
+    #OVER NUMBER
+    overtitle = Label(window, text = "OVER: ", fg = grey, bg = green, font = font4).place(relx = 0.37, rely = 0.125)
+    overlabel = Label(window, text = str(over_number) + "." + str(balls), fg = white, bg = green, font = font2).place(relx = 0.575, rely = 0.125)
+
+    #RUN RATE
+    avgrrtitle = Label(window, text = "RR: ", fg = grey, bg = green, font = font4).place(relx = 0.7, rely = 0.125)
+    totalballs = (over_number * 6) + balls
+    if batting1 == True:
+        avgrr = int(runs1) * 6/balls
+    else:
+        avgrr = int(runs2) * 6/balls
+    avgrrlabel = Label(window, text = avgrr, fg = white, bg = green, font = font2).place(relx = 0.85, rely = 0.125)
+
+    #BATMEN NAMES & STATS
+    ########## NAME
+    batsman1namelabel = Label(window, text = batsman1_name.title() + ": ", fg = white, bg = green, font = "Helvetica 10 bold").place(relx = 0.125, rely = 0.225)
+    batsman2namelabel = Label(window, text = batsman2_name.title() + ": ", fg = white, bg = green, font = "Helvetica 10 bold").place(relx = 0.125, rely = 0.325)
+    ########## STRIKE
+    photo = PhotoImage(file="StrikeArrow.png").subsample(150)
+    draft = Label(image = photo, bg = green)
+    draft.image = photo
+    if strike1 == True:
+        draft.place(relx = 0.05, rely = 0.2525, anchor = CENTER)
+    if strike1 == False:
+        draft.place(relx = 0.05, rely = 0.3525, anchor = CENTER)
+    ########## STATS
+    batsman1_stats = 0
+    batsman1statslabel = Label(window, text = str(batsman1_stats) , fg = white, bg = green, font = font2).place(relx = 0.725, rely = 0.2525, anchor = CENTER)
+    batsman2_stats = 0
+    batsman2statslabel = Label(window, text = str(batsman2_stats) , fg = white, bg = green, font = font2).place(relx = 0.725, rely = 0.3525, anchor = CENTER)
+
+    #BOWLER NAME AND STATS
+    ########## NAME 
+    bowlernamelabel = Label(window, text = bowler_name.title() + ": ", fg = white, bg = green, font = "Helvetica 10 bold").place(relx = 0.125, rely = 0.45)
+    ########## STATS
+    bowlerstatlabel = Label(window, text = bowler_stats, fg = white, bg = green, font = font2).place(relx = 0.725, rely = 0.4725, anchor = CENTER)
+
+    #BUTTONS
+    ########## ONE RUN
+    onerunbtn = Button(window, text = "1", fg = white, activeforeground = white, bg = green, activebackground = red, font = font2, width = 7, relief = relief, command = onerun).place(relx = 0.2, rely = 0.6, anchor = CENTER)
+    ########## TWO RUNS
+    tworunbtn = Button(window, text = "2", fg = white, activeforeground = white, bg = green, activebackground = red, font = font2, width = 7, relief = relief, command = tworun).place(relx = 0.5, rely = 0.6, anchor = CENTER)
+    ########## THREE RUNS
+    theerunbtn = Button(window, text = "3", fg = white, activeforeground = white, bg = green, activebackground = red, font = font2, width = 7, relief = relief, command = threerun).place(relx = 0.8, rely = 0.6, anchor = CENTER)
+    ########## FOUR RUNS
+    fourrunbtn = Button(window, text = "4", fg = white, activeforeground = white, bg = green, activebackground = red, font = font2, width = 7, relief = relief, command = fourrun).place(relx = 0.2, rely = 0.725, anchor = CENTER)
+    ########## FIVE RUNS
+    fiverunbtn = Button(window, text = "5", fg = white, activeforeground = white, bg = green, activebackground = red, font = font2, width = 7, relief = relief, command = fiverun).place(relx = 0.5, rely = 0.725, anchor = CENTER)
+    ########## SIX RUNS
+    sixrunbtn = Button(window, text = "6", fg = white, activeforeground = white, bg = green, activebackground = red, font = font2, width = 7, relief = relief, command = sixrun).place(relx = 0.8, rely = 0.725, anchor = CENTER)
+    ########## EXTRA BALLS
+    extrabtn = Button(window, text = "Extras", fg = white, activeforeground = white, bg = green, activebackground = red, font = font2, width = 7, relief = relief, command = extras).place(relx = 0.2, rely = 0.85, anchor = CENTER)
+    ########## MINUS ONE RUN
+    minusonebtn = Button(window, text = "-1", fg = white, activeforeground = white, bg = green, activebackground = red, font = font2, width = 7, relief = relief, command = minusone).place(relx = 0.5, rely = 0.85, anchor = CENTER)
+    ########## WICKET
+    wcktbtn = Button(window, text = "Wicket", fg = white, activeforeground = white, bg = green, activebackground = red, font = font2, width = 7, relief = relief, command = wicket).place(relx = 0.8, rely = 0.85, anchor = CENTER)
+
+    window.geometry("%dx%d+%d+%d" %(w, h, x, y)) 
+    window.title("CRICKET SCORER")
+    window.iconbitmap('Cricket icon.ico')
+    window.configure(background = green)
+
+def onerun():
+    print("One run added")
+def tworun():
+    print("Two runs added")
+def threerun():
+    print("Three runs added")
+def fourrun():
+    print("Four runs added")
+def fiverun():
+    print("Five runs added")
+def sixrun():
+    print("Six runs added")
+def extras():
+    print("Extras selected")
+def minusone():
+    print("One run subtracted")
+def wicket():
+    print("Wicket selected")
+    
+window() #Executing the window function
